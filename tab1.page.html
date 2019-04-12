@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      {{title}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <h3 text-center *ngIf="loadItems().length === 0">
+      The cart is empty!
+    </h3>
+
+    <ion-list>
+      <ion-item-sliding *ngFor="let item of loadItems(); let i=index">
+        <ion-item>
+          <h2>{{item.name}}</h2>
+          <h5><pre> amount: {{item.quantity}} </pre></h5>
+          <h5><pre>| cost: ${{item.cost}} </pre></h5>
+          <h5><pre>| total: ${{(item.cost * item.quantity) | number:'1.2-2'}} </pre></h5>
+        </ion-item>
+        <ion-item-options>
+
+          <ion-button (click)="editItem(item, i)" color="secondary" size="large" icon-start>
+            <ion-icon name="create"></ion-icon>
+            Edit
+          </ion-button>
+
+          <ion-button (click)="shareItem(item, i)" color="light" size="large" icon-start>
+            <ion-icon name="share"></ion-icon>
+            Share
+          </ion-button>
+          
+          <ion-button (click)="removeItem(item, i)" color="danger" size="large" icon-start>
+            <ion-icon name="trash"></ion-icon>
+            Done
+          </ion-button>
+
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button ion-fab mini>
+        <ion-icon (click)="addItem()" name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+
+    
+</ion-content>
